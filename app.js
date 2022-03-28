@@ -1,25 +1,21 @@
-// Initialize express
-const express = require('express')
-const app = express()
+// Require Libraries
+const express = require('express');
+// const fetch = require('node-fetch');
+// require('dotenv').config();
 
-// require handlebars
-const exphbs = require('express-handlebars');
-const Handlebars = require('handlebars')
-const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+// App Setup
+const app = express();
 
-// Use "main" as our default layout
-app.engine('handlebars', exphbs({ defaultLayout: 'main', handlebars: allowInsecurePrototypeAccess(Handlebars) }));
-// Use handlebars to render
+const { engine } = require('express-handlebars');
+
+app.use(express.static('public'));
+app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
+app.set("views", "./views");
 
 // Render the "home" layout for the main page and send the following msg
 app.get('/', (req, res) => {
   res.render('home', { msg: 'Handlebars are Cool!' });
-})
-
-// Tell our app to send the "hello world" message to our home page
-app.get('/', (req, res) => {
-  res.send('Hello World!')
 })
 
 // Choose a port to listen on
