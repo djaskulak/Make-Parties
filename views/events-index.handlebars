@@ -1,14 +1,20 @@
-<div class="d-flex flex-row align-items-center justify-content-center" style="max-width: 1300px; flex-wrap: wrap;">
-  {{#each events}}
-    <div class="card rounded m-2" style="width: 350px; height: 350px;">
-      <img class="card-img-top" src="{{this.imgUrl}}" alt="Card image cap">
-      <div class="card-body">
-        <h2 class="card-title h4">{{this.title}}</h2>
-        <p class="card-text">{{this.description}}</p>
-      </div>
-      <div class="card-footer">
-        <a href="/events/{{this.id}}" class="btn btn-primary w-100 align-self-center">VIEW</a>
-      </div>
+{{#each events}}
+ <div class="row mt-2 d-flex justify-content-center">
+    <div class="col-lg-6">
+        <div class="card" >
+        {{!-- <img class="img-fluid" src="{{this.imgUrl}}" alt="Card image cap"> --}}
+        <img src="{{this.imgUrl}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.desc}}</p>
+            <div class="d-flex justify-content-end">
+                <a href="#" class="btn btn-success mr-2">RSVP</a>
+                <a href="#" class="btn btn-primary">View</a>
+            </div>
+        </div>
+        </div>
     </div>
-  {{/each}}
-</div>
+  </div>
+  
+  
+{{/each}}
