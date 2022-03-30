@@ -1,0 +1,24 @@
+{
+  "name": "make-parties",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djaskulak/Make-Parties.git"
+  },
+  "author": "Danika Jaskulak-Gonzalez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djaskulak/Make-Parties/issues"
+  },
+  "homepage": "https://github.com/djaskulak/Make-Parties#readme",
+  "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.5",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.3"
+  }
+}
