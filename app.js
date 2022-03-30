@@ -8,15 +8,16 @@ const app = express();
 
 const { engine } = require('express-handlebars');
 
+// INITIALIZE BODY-PARSER AND ADD IT TO APP
+const bodyParser = require('body-parser');
+
+// The following line must appear AFTER const app = express() and before your routes!
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.static('public'));
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set("views", "./views");
-
-// Render the "home" layout for the main page and send the following msg
-// app.get('/', (req, res) => {
-//   res.render('home', { msg: 'Handlebars are Cool!' });
-// })
 
 // OUR MOCK ARRAY OF PROJECTS
 var events = [
@@ -28,6 +29,16 @@ var events = [
 // INDEX
 app.get('/', (req, res) => {
   res.render('events-index', { events: events });
+})
+
+// NEW
+app.get('/events/new', (req, res) => {
+  res.render('events-new', {});
+})
+
+// CREATE
+app.post('/events', (req, res) => {
+  console.log(req.body);
 })
 
 // Choose a port to listen on
