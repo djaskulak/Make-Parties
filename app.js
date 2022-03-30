@@ -1,11 +1,13 @@
 // Require Libraries
 const express = require('express');
-
 // App Setup
 const app = express();
-
 const { engine } = require('express-handlebars');
+// INITIALIZE BODY-PARSER AND ADD IT TO APP
+const bodyParser = require('body-parser');
+const models = require('./db/db/models');
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
@@ -20,7 +22,23 @@ var events = [
 
 // INDEX
 app.get('/', (req, res) => {
-  res.render('events-index', { events: events });
+  models.Event.findAll({ order: [['createdAt', 'DESC']] }).then(events => {
+    res.render('events-index', { events: events });
+  })
+})
+
+// NEW
+app.get('/events/new', (req, res) => {
+  res.render('events-new', {});
+})
+
+// CREATE
+app.post('/events', (req, res) => {
+  models.Event.create(req.body).then(event => {
+    res.redirect(`/`);
+  }).catch((err) => {
+    console.log(err)
+  });
 })
 
 // Choose a port to listen on
