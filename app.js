@@ -1,5 +1,6 @@
 // Require Libraries
 const express = require('express');
+const methodOverride = require('method-override')
 // App Setup
 const app = express();
 const { engine } = require('express-handlebars');
@@ -9,6 +10,8 @@ const models = require('./db/db/models');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+// override with POST having ?_method=DELETE or ?_method=PUT
+app.use(methodOverride('_method'))
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set("views", "./views");
@@ -52,6 +55,28 @@ app.get('/events/:id', (req, res) => {
     console.log(err.message);
   })
 })
+
+// EDIT
+app.get('/events/:id/edit', (req, res) => {
+  models.Event.findByPk(req.params.id).then((event) => {
+    res.render('events-edit', { event: event });
+  }).catch((err) => {
+    console.log(err.message);
+  })
+});
+
+// UPDATE
+app.put('/events/:id', (req, res) => {
+  models.Event.findByPk(req.params.id).then(event => {
+    event.update(req.body).then(event => {
+      res.redirect(`/events/${req.params.id}`);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }).catch((err) => {
+    console.log(err);
+  });
+});
 
 // Choose a port to listen on
 const port = process.env.PORT || 3000;
