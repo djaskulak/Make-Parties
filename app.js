@@ -1,7 +1,5 @@
 // Require Libraries
 const express = require('express');
-//const fetch = require('node-fetch');
-//require('dotenv').config();
 
 // App Setup
 const app = express();
@@ -13,9 +11,16 @@ app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 app.set("views", "./views");
 
-// Render the "home" layout for the main page and send the following msg
+// OUR MOCK ARRAY OF PROJECTS
+var events = [
+  { title: "I am your first event", desc: "A great event that is super fun to look at and good", imgUrl: "https://cdn.royalcanin-weshare-online.io/UCImMmgBaxEApS7LuQnZ/v2/eukanuba-market-image-puppy-beagle?w=5596&h=2317&rect=574,77,1850,1045&auto=compress,enhance" },
+  { title: "I am your second event", desc: "A great event that is super fun to look at and good", imgUrl: "https://cdn.royalcanin-weshare-online.io/UCImMmgBaxEApS7LuQnZ/v2/eukanuba-market-image-puppy-beagle?w=5596&h=2317&rect=574,77,1850,1045&auto=compress,enhance" },
+  { title: "I am your third event", desc: "A great event that is super fun to look at and good", imgUrl: "https://cdn.royalcanin-weshare-online.io/UCImMmgBaxEApS7LuQnZ/v2/eukanuba-market-image-puppy-beagle?w=5596&h=2317&rect=574,77,1850,1045&auto=compress,enhance" }
+]
+
+// INDEX
 app.get('/', (req, res) => {
-  res.render('home', { msg: 'Handlebars are Cool!' });
+  res.render('events-index', { events: events });
 })
 
 // Choose a port to listen on
